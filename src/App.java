@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class App {
@@ -35,7 +36,35 @@ public class App {
         System.err.println(benGenResults);
         */
 
-        List<Results> resultados = ControladorExperimentos.ejecutarExperimentos();
+        List<Results> resultados = new ArrayList<>();
+        int[] tamanios = { 10000, 50000, 100000 };
+        Comparator<Integer> comparador = (a, b) -> a - b;
+
+        for (int i = 0; i < tamanios.length; i++) {
+            int n = tamanios[i];
+            System.out.println("Ejecutando pruebas para n = " + n + "...");
+
+            int[] original = Generador.generate(n);
+
+            int[] copia1 = new int[n];
+            int[] copia2 = new int[n];
+            int[] copia3 = new int[n];
+            Integer[] copia4 = new Integer[n];
+  
+            for (int j = 0; j < n; j++) {
+                copia1[j] = original[j];
+                copia2[j] = original[j];
+                copia3[j] = original[j];
+                copia4[j] = original[j];
+            }
+
+            resultados.add(Benchmark.medir(() -> Ordenamientos.bubbleSort(copia1), "V1 - Bubble Sort", "" + n));
+            resultados.add(Benchmark.medir(() -> Ordenamientos.mergeSort(copia2), "V2 - Merge Sort", "" + n));
+            resultados
+                    .add(Benchmark.medir(() -> Ordenamientos.sortPrimitivo(copia3), "V3 - Arrays.sort(int[])", "" + n));
+            resultados.add(Benchmark.medir(() -> Ordenamientos.sortComparator(copia4, comparador),
+                    "V4 - Arrays.sort(Integer[])", "" + n));
+        }
 
         System.out.println("\n=== RESULTADOS FINALES (12 MEDICIONES) ===");
         for (int i = 0; i < resultados.size(); i++) {
