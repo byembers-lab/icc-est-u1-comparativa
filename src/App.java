@@ -24,6 +24,7 @@ public class App {
         x.run();
         */
 
+        /* 
         Generador g = new Generador();
         Benchmark b = new Benchmark();
 
@@ -32,5 +33,13 @@ public class App {
 
         Results benGenResults = b.medir(()-> g.generate(100), "Generacion listado", "100000");
         System.err.println(benGenResults);
+        */
+
+        List<Results> resultados = ControladorExperimentos.ejecutarExperimentos();
+
+        System.out.println("\n=== RESULTADOS FINALES (12 MEDICIONES) ===");
+        for (int i = 0; i < resultados.size(); i++) {
+            System.out.println(resultados.get(i));
+        }
     }
 }
