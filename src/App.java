@@ -65,7 +65,8 @@ public class App {
             resultados.add(Benchmark.medir(() -> Ordenamientos.sortComparator(copia4, comparador),
                     "V4 - Arrays.sort(Integer[])", "" + n));
         }
-
+        
+        //imprimir
         System.out.println("\n=== RESULTADOS FINALES (12 MEDICIONES) ===");
         for (int i = 0; i < resultados.size(); i++) {
             System.out.println(resultados.get(i));
